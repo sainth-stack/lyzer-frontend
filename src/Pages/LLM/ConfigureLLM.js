@@ -7,7 +7,7 @@ import { modelOptions, modelVendorOptions } from '../../data/DataJson';
 const ConfigureLLM = () => {
     const [modelVendor, setModelVendor] = useState('openai');
     const [apiKey, setApiKey] = useState('');
-    const [model, setModel] = useState('');
+    const [model, setModel] = useState('gpt-4o-mini');
     const [temperature, setTemperature] = useState(0.5);
     const [topP, setTopP] = useState(0.9);
 
@@ -32,6 +32,7 @@ const ConfigureLLM = () => {
                     placeholder={`Enter ${label}`}
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
+                    error={!apiKey ? 'API Key is required' : ''}
                 />
             );
         } else if (type === 'slider') {
@@ -52,20 +53,46 @@ const ConfigureLLM = () => {
         return null;
     };
 
+    // Generate the JSON object based on current state
+    const generatedJSON = {
+        features: [],
+        tools: [],
+        llm_config: {
+            provider: modelVendor,
+            model: model,
+            config: {
+                temperature: temperature,
+                top_p: topP,
+            },
+        },
+        env: {
+            OPENAI_API_KEY: apiKey || 'Enter API Key',
+        },
+    };
+
     return (
         <div className="flex bg-white h-full">
-            <div className="w-full p-4">
-                <div className="border-2 w-full bg-slate-50 rounded-lg p-6">
-
-                <form className="p-4">
-                    <h2 className="text-xl font-bold mb-4">Configure your LLM:</h2>
-                    {renderInput('select', 'Model Vendor', 'modelVendor', modelVendorOptions)}
-                    {renderInput('text', 'LLM API Key', 'apiKey')}
-                    {renderInput('select', 'Model', 'model', modelOptions)}
-                    {renderInput('slider', 'Temperature', 'temperature')}
-                    {renderInput('slider', 'Top P', 'topP')}
+            {/* Left form section */}
+            <div className="w-1/2 p-4">
+                <div className="border-2 bg-slate-50 rounded-lg p-6">
+                    <form className="p-4">
+                        <h2 className="text-xl font-bold mb-4">Configure your LLM:</h2>
+                        {renderInput('select', 'Model Vendor', 'modelVendor', modelVendorOptions)}
+                        {renderInput('text', 'LLM API Key', 'apiKey')}
+                        {renderInput('select', 'Model', 'model', modelOptions)}
+                        {renderInput('slider', 'Temperature', 'temperature')}
+                        {renderInput('slider', 'Top P', 'topP')}
                     </form>
-                    </div>
+                </div>
+            </div>
+
+            {/* Right JSON display section */}
+            <div className="w-1/2 p-4">
+                <div className="border-2 bg-slate-50 rounded-lg p-6">
+                    <pre className="bg-slate-100 p-4 rounded text-sm">
+                        {JSON.stringify(generatedJSON, null, 2)}
+                    </pre>
+                </div>
             </div>
         </div>
     );

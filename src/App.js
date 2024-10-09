@@ -20,8 +20,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/configure-llm" element={<ConfigureLLM />} />
             <Route path="/configure-tools" element={<ConfigureTools />} />
-            <Route path="/agent-apps" element={<AgentApps />} />
-            <Route path="/agent-studio" element={<AgentStudio />} />
+            {/* <Route path="/agent-apps" element={<AgentApps />} />
+            <Route path="/agent-studio" element={<AgentStudio />} /> */}
 
           </Routes>
         </div>
