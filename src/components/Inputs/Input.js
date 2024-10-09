@@ -11,7 +11,6 @@ const Input = React.forwardRef(({ placeholder, value, onChange, masked, classNam
                 value={value}
                 onChange={onChange}
                 className="border bg-slate-100 border-gray-300 rounded-md p-2 m-2 w-full" // Custom classes
-
                 readOnly={readOnly}
             />
         </div>

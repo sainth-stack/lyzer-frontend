@@ -32,26 +32,30 @@ const ConfigureTools = () => {
 
     return (
         <>
-            <div className="flex justify-center  w-full mt-4 h-[100vh]">
+            <div className="flex justify-center  w-full mt-4 ">
                 <div className='border-2 w-[90%] bg-slate-50 rounded-lg'>
                     <h3 className='p-2 m-2  font-bold'>Enable Tools to interact with third-party services:</h3>
-                    <div className="grid grid-cols-3 overflow-y-scroll h-[600px]  gap-4 p-4 bg-white">
+                    <div className="grid grid-cols-3 overflow-y-scroll   gap-4 p-4 bg-white">
                         {cardData.map((card, index) => (
                             <Card
                                 key={index}
                                 title={card.title}
-                                heading={card.heading}
-                                icon={card.icon}
+                                heading={
+                                    <span className='font-semibold w-40 flex flex-wrap mt-2'>
+
+                                        {card.heading}</span>}
+                                icon={<div style={{ fontSize: '24px', color: '#333', marginRight: '10px' }} className='bg-slate-100 p-2 rounded-md '>{card.icon}</div>}
                                 toggle={<Toggle />}
                                 configureButton={
                                     <button
                                         onClick={() => handleConfigureClick(card.title)}
-                                        className="mt-4 text-black border-2 rounded-lg py-2 px-4 rounded"
+                                        className="mt-4 text-black border-2 rounded-lg py-2 px-4"
                                     >
                                         Configure
                                     </button>
                                 }
                             />
+
                         ))}
                     </div>
                 </div>
