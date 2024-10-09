@@ -29,3 +29,9 @@ export // Dummy data for cards
         { title: 'DALL-E', heading: 'Image Generator', icon: '🖼️' },
     ];
 
+
+
+export const environmentOptions = [
+    { value: 'dev', label: 'Development' },
+    { value: 'prod', label: 'Production' },
+];
